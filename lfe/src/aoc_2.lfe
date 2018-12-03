@@ -1,13 +1,9 @@
 (defmodule aoc_2
   (export (pt1 0) (pt2 0)))
 
-(defun load () (aoc_util:load 2))
+(defun load () (aoc_util:loadm))
 
 (defun pt1 () (checksum (load)))
-(defun pt2 ()
-  (let ([(list (tuple x (list y)) (tuple y (list x)))
-               (minimal-pairs (lists:map (fun binary_to_list 1) (load)))])
-    (common-word x y)))
 
 (defun count-letters (word)
   (lists:foldl (fun count-letter 2) (dict:new) (binary_to_list word)))
@@ -37,6 +33,11 @@
 (defun checksum (words)
   (let ([(tuple x y) (count-all words)])
     (* x y)))
+
+(defun pt2 ()
+  (let ([(list (tuple x (list y)) (tuple y (list x)))
+               (minimal-pairs (lists:map (fun binary_to_list 1) (load)))])
+    (common-word x y)))
 
 (defun hamming (a b)
   (lists:foldl
